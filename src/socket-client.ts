@@ -55,6 +55,11 @@ const addListeners = () => {
             message: messageInput.value 
         });
 
+        socket.emit('transaction-info-shimmer', { 
+            id: 'YO!!', 
+            message: messageInput.value 
+        });
+
         socket.emit('ping', { 
     
             message: 'Hola'
@@ -91,6 +96,18 @@ const addListeners = () => {
         const newMessage = `
             <li>
                 <strong>${ payload.conversion }</strong>
+            </li>
+        `;
+        const li = document.createElement('li');
+        li.innerHTML = newMessage;
+        messagesUl.append( li );
+    })
+
+    socket.on('server-transaction-info-shimmer', ( payload ) => {
+        console.log('smr: ', payload);
+        const newMessage = `
+            <li>
+                <strong>${ payload }</strong>
             </li>
         `;
         const li = document.createElement('li');
